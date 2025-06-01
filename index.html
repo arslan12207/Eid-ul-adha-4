@@ -8,17 +8,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
 
         :root {
-            --bg-color: #0a192f; /* Deep Navy Blue */
-            --card-bg-color: #172a45; /* Slightly Lighter Navy for Card */
-            --text-color: #ccd6f6; /* Light, soft blueish text */
+            --bg-color: #0a192f;
+            --card-bg-color: #172a45;
+            --text-color: #ccd6f6;
             --heading-text-color: #e6f1ff;
-            --accent-gold: #ffd700; /* Gold */
+            --accent-gold: #ffd700;
             --accent-gold-rgb: 255, 215, 0;
             --subtle-glow: rgba(var(--accent-gold-rgb), 0.3);
             --border-color: rgba(var(--accent-gold-rgb), 0.2);
             --button-bg: var(--accent-gold);
-            --button-text: #0a192f; /* Dark text on gold button */
-            --button-hover-bg: #e0bd00; /* Darker gold for hover */
+            --button-text: #0a192f;
+            --button-hover-bg: #e0bd00;
         }
 
         * {
@@ -64,13 +64,28 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        .personal-greeting-banner {
+            background-color: rgba(var(--accent-gold-rgb), 0.1);
+            color: var(--accent-gold);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+            display: none; /* Hidden by default, shown by JS if sender name is present */
+            border: 1px solid rgba(var(--accent-gold-rgb), 0.3);
+        }
+        .personal-greeting-banner strong {
+            color: #fff; /* Brighter color for the name itself */
+        }
+
 
         .eid-gif {
             width: 100%;
             max-width: 300px;
             height: auto;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 25px; /* Adjusted margin */
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -199,9 +214,9 @@
             max-height: 300px; 
             padding: 18px 22px;
         }
-        .custom-wish-area strong { /* Style for the sender's name on the page */
+        .custom-wish-area strong { 
             color: var(--accent-gold);
-            font-weight: 500; /* Poppins 500 */
+            font-weight: 500; 
         }
 
         #shareWhatsappButton {
@@ -220,7 +235,6 @@
             fill: white;
         }
         
-        /* Ad Container Styling */
         #adContainerBottom {
             position: fixed;
             bottom: 10px; 
@@ -236,47 +250,28 @@
             justify-content: center;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 600px) {
-            body {
-                padding-bottom: 70px; 
-            }
-            .container {
-                padding: 20px;
-                margin-top: 15px;
-            }
-            .eid-gif {
-                max-width: 240px;
-                 margin-bottom: 25px;
-            }
-             .decorative-flourish {
-                font-size: 2.2em;
-             }
-            .greeting-text {
-                margin-bottom: 10px;
-            }
-            .greeting-subtext {
-                margin-bottom: 25px;
-            }
-            .action-button {
-                padding: 12px 25px;
-                font-size: 1em;
-            }
-            .custom-wish-area {
-                 margin-bottom: 20px;
-            }
+            body { padding-bottom: 70px; }
+            .container { padding: 20px; margin-top: 15px; }
+            .eid-gif { max-width: 240px; margin-bottom: 20px; }
+            .personal-greeting-banner { font-size: 0.9em; margin-bottom: 15px; }
+            .decorative-flourish { font-size: 2.2em; }
+            .greeting-text { margin-bottom: 10px; }
+            .greeting-subtext { margin-bottom: 25px; }
+            .action-button { padding: 12px 25px; font-size: 1em; }
+            .custom-wish-area { margin-bottom: 20px; }
         }
-         @media (max-width: 350px) {
-            #adContainerBottom {
-                width: 100%; 
-                max-width: 320px; 
-            }
-         }
+        @media (max-width: 350px) {
+            #adContainerBottom { width: 100%; max-width: 320px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- This div will show who sent the greeting, if applicable -->
+        <div id="personalGreetingBanner" class="personal-greeting-banner"></div>
+
         <img src="eid.gif" alt="Eid Mubarak GIF" class="eid-gif">
 
         <div class="decorative-flourish">Eid Mubarak</div>
@@ -298,7 +293,6 @@
         </button>
     </div>
 
-    <!-- JavaScript to conditionally load the second ad -->
     <script type="text/javascript">
         (function() {
             const adStorageKey = 'profitRateAdShownOnce';
@@ -308,14 +302,10 @@
                 script.src = '//pl26809181.profitableratecpm.com/14/7f/71/147f7126e271554724df1d41a3e4c3cb.js';
                 document.head.appendChild(script);
                 localStorage.setItem(adStorageKey, 'true');
-                // console.log('Second ad script loaded for the first time.');
-            } else {
-                // console.log('Second ad script already shown, not loading again.');
             }
         })();
     </script>
 
-    <!-- Ad Container for Adsterra Banner -->
     <div id="adContainerBottom">
         <script type="text/javascript">
             atOptions = {
@@ -335,50 +325,72 @@
             const generateWishButton = document.getElementById('generateWishButton');
             const customWishOutput = document.getElementById('customWishOutput');
             const shareWhatsappButton = document.getElementById('shareWhatsappButton');
+            const personalGreetingBanner = document.getElementById('personalGreetingBanner');
            
-            let senderNameForSharing = ""; // Stores the sender's name (or default)
-            let coreWishForSharing = "";   // Stores the plain text core wish
+            let senderNameForSharing = ""; 
+            let coreWishForSharing = "";   
 
+            // --- Function to check URL for sender name and display banner ---
+            function displaySenderGreeting() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const sender = urlParams.get('sender');
+                if (sender) {
+                    // Sanitize sender name (simple sanitization for display)
+                    const sanitizedSender = sender.replace(/</g, "<").replace(/>/g, ">");
+                    personalGreetingBanner.innerHTML = `Yeh Eid Greeting aapko <strong>${sanitizedSender}</strong> ne bheja hai!`;
+                    personalGreetingBanner.style.display = 'block';
+                }
+            }
+            displaySenderGreeting(); // Call on page load
+
+            // --- Wish Generation ---
             generateWishButton.addEventListener('click', () => {
                 const name = nameInput.value.trim();
-                senderNameForSharing = name || "Ek Dost"; // Default to "Ek Dost" (A Friend) if name is empty
+                // If user is on a page with a `sender` param, they are a recipient,
+                // so their input name is for *their own* new wish.
+                // If no `sender` param, they are the original sender.
+                const urlParams = new URLSearchParams(window.location.search);
+                const pageSender = urlParams.get('sender');
 
-                // Message for on-page display (HTML formatted)
+                if (pageSender) { // This user is a recipient, now making their own wish
+                    senderNameForSharing = name || "Ek Dost";
+                } else { // This user is the original sender
+                     senderNameForSharing = name || "Ek Dost";
+                }
+                
                 const onPageMessage = `<strong>${senderNameForSharing}</strong> ki taraf se aapko Eid Mubarak! 🌙 Dua hai ke yeh Eid aapke liye dher saari khushiyan, aman aur barkat laye.`;
                 customWishOutput.innerHTML = onPageMessage;
-
-                // Core wish text (plain text) for sharing
                 coreWishForSharing = `Eid Mubarak! Dua hai ke yeh Eid aapke liye dher saari khushiyan, aman aur barkat laye. 🌙`;
                 
                 customWishOutput.classList.add('show');
                 shareWhatsappButton.style.display = 'inline-flex'; 
             });
 
+            // --- WhatsApp Sharing ---
             shareWhatsappButton.addEventListener('click', () => {
                 if (!coreWishForSharing || !senderNameForSharing) {
-                    // This alert can be in Hindi/Urdu too
-                    alert("Pehle apna paigham toh bana lein! (Please create your message first!)");
+                    alert("Pehle apna paigham toh bana lein!");
                     return;
                 }
                 
-                const siteUrl = window.location.href;
-                
-                // Constructing the WhatsApp message
-                // Intro: "[Sender's Name] has sent you Eid felicitations and this message:"
-                const introText = `${senderNameForSharing} ne aapko Eid ki Mubarakbad aur yeh paigham bheja hai:`;
-                // For a more formal greeting, you could use:
-                // const introText = `Assalamu Alaikum! 🕌\n\n${senderNameForSharing} ne aapko Eid ki Mubarakbad aur yeh paigham bheja hai:`;
+                // Get the base URL (without existing query parameters)
+                let siteUrl = window.location.origin + window.location.pathname;
+                // Add the sender's name as a URL parameter
+                siteUrl += `?sender=${encodeURIComponent(senderNameForSharing)}`;
 
+                const introText = `${senderNameForSharing} ne aapko Eid ki Mubarakbad aur yeh paigham bheja hai:`;
+                
                 const whatsappMessage = encodeURIComponent(
-                    `${introText}\n\n` + // Introductory line
-                    `"${coreWishForSharing}"\n\n` + // The actual wish, quoted
-                    `✨ Aap bhi apna Eid Greeting yahan banayein:\n${siteUrl}` // Link to the site
+                    `${introText}\n\n` + 
+                    `"${coreWishForSharing}"\n\n` + 
+                    `✨ Aap bhi apna Eid Greeting yahan banayein:\n${siteUrl}`
                 );
                 const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
                 
                 window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
             });
 
+            // --- Utility Functions ---
             function setRgbColorVar(varName, hexColor) {
                 let r = 0, g = 0, b = 0;
                 if (hexColor.startsWith('#')) hexColor = hexColor.slice(1);
