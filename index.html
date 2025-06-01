@@ -199,8 +199,9 @@
             max-height: 300px; 
             padding: 18px 22px;
         }
-        .custom-wish-area strong {
+        .custom-wish-area strong { /* Style for the sender's name on the page */
             color: var(--accent-gold);
+            font-weight: 500; /* Poppins 500 */
         }
 
         #shareWhatsappButton {
@@ -305,11 +306,11 @@
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
                 script.src = '//pl26809181.profitableratecpm.com/14/7f/71/147f7126e271554724df1d41a3e4c3cb.js';
-                document.head.appendChild(script); // Append to head to load it
+                document.head.appendChild(script);
                 localStorage.setItem(adStorageKey, 'true');
-                console.log('Second ad script loaded for the first time.');
+                // console.log('Second ad script loaded for the first time.');
             } else {
-                console.log('Second ad script already shown, not loading again.');
+                // console.log('Second ad script already shown, not loading again.');
             }
         })();
     </script>
@@ -335,28 +336,44 @@
             const customWishOutput = document.getElementById('customWishOutput');
             const shareWhatsappButton = document.getElementById('shareWhatsappButton');
            
-            let customMessageText = ""; 
+            let senderNameForSharing = ""; // Stores the sender's name (or default)
+            let coreWishForSharing = "";   // Stores the plain text core wish
 
             generateWishButton.addEventListener('click', () => {
                 const name = nameInput.value.trim();
-                const displayName = name || "a friend"; 
+                senderNameForSharing = name || "Ek Dost"; // Default to "Ek Dost" (A Friend) if name is empty
+
+                // Message for on-page display (HTML formatted)
+                const onPageMessage = `<strong>${senderNameForSharing}</strong> ki taraf se aapko Eid Mubarak! 🌙 Dua hai ke yeh Eid aapke liye dher saari khushiyan, aman aur barkat laye.`;
+                customWishOutput.innerHTML = onPageMessage;
+
+                // Core wish text (plain text) for sharing
+                coreWishForSharing = `Eid Mubarak! Dua hai ke yeh Eid aapke liye dher saari khushiyan, aman aur barkat laye. 🌙`;
                 
-                customMessageText = `Eid Mubarak! This special wish comes from ${displayName}. 🎉 May your Eid be filled with happiness, cherished moments, and countless blessings!`;
-                
-                customWishOutput.innerHTML = `Eid Mubarak! This special wish comes from <strong>${displayName}</strong>. 🎉 May your Eid be filled with happiness, cherished moments, and countless blessings!`;
                 customWishOutput.classList.add('show');
-                
                 shareWhatsappButton.style.display = 'inline-flex'; 
             });
 
             shareWhatsappButton.addEventListener('click', () => {
-                if (!customMessageText) {
-                    alert("Please create your wish first!");
+                if (!coreWishForSharing || !senderNameForSharing) {
+                    // This alert can be in Hindi/Urdu too
+                    alert("Pehle apna paigham toh bana lein! (Please create your message first!)");
                     return;
                 }
                 
                 const siteUrl = window.location.href;
-                const whatsappMessage = encodeURIComponent(customMessageText + "\n\nCreate your own Eid Greeting: " + siteUrl);
+                
+                // Constructing the WhatsApp message
+                // Intro: "[Sender's Name] has sent you Eid felicitations and this message:"
+                const introText = `${senderNameForSharing} ne aapko Eid ki Mubarakbad aur yeh paigham bheja hai:`;
+                // For a more formal greeting, you could use:
+                // const introText = `Assalamu Alaikum! 🕌\n\n${senderNameForSharing} ne aapko Eid ki Mubarakbad aur yeh paigham bheja hai:`;
+
+                const whatsappMessage = encodeURIComponent(
+                    `${introText}\n\n` + // Introductory line
+                    `"${coreWishForSharing}"\n\n` + // The actual wish, quoted
+                    `✨ Aap bhi apna Eid Greeting yahan banayein:\n${siteUrl}` // Link to the site
+                );
                 const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
                 
                 window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
@@ -387,7 +404,6 @@
              if (textColorValue) {
                 setRgbColorVar('--text-color-rgb', textColorValue);
             }
-
         });
     </script>
 </body>
