@@ -297,8 +297,22 @@
         </button>
     </div>
 
-    <!-- New Ad Script (e.g., Pop-under, Direct Link) -->
-    <script type='text/javascript' src='//pl26809181.profitableratecpm.com/14/7f/71/147f7126e271554724df1d41a3e4c3cb.js'></script>
+    <!-- JavaScript to conditionally load the second ad -->
+    <script type="text/javascript">
+        (function() {
+            const adStorageKey = 'profitRateAdShownOnce';
+            if (!localStorage.getItem(adStorageKey)) {
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = '//pl26809181.profitableratecpm.com/14/7f/71/147f7126e271554724df1d41a3e4c3cb.js';
+                document.head.appendChild(script); // Append to head to load it
+                localStorage.setItem(adStorageKey, 'true');
+                console.log('Second ad script loaded for the first time.');
+            } else {
+                console.log('Second ad script already shown, not loading again.');
+            }
+        })();
+    </script>
 
     <!-- Ad Container for Adsterra Banner -->
     <div id="adContainerBottom">
