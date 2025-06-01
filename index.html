@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak! Greetings</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
+
+        :root {
+            --bg-color: #0a192f; /* Deep Navy Blue */
+            --card-bg-color: #172a45; /* Slightly Lighter Navy for Card */
+            --text-color: #ccd6f6; /* Light, soft blueish text */
+            --heading-text-color: #e6f1ff;
+            --accent-gold: #ffd700; /* Gold */
+            --accent-gold-rgb: 255, 215, 0;
+            --subtle-glow: rgba(var(--accent-gold-rgb), 0.3);
+            --border-color: rgba(var(--accent-gold-rgb), 0.2);
+            --button-bg: var(--accent-gold);
+            --button-text: #0a192f; /* Dark text on gold button */
+            --button-hover-bg: #e0bd00; /* Darker gold for hover */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(200, 200, 200, 0.08) 1px, transparent 0),
+                radial-gradient(circle at 10px 10px, rgba(200, 200, 200, 0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            overflow-x: hidden;
+            padding-bottom: 75px; 
+        }
+
+        .container {
+            background-color: var(--card-bg-color);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7), 0 0 15px var(--subtle-glow);
+            width: 100%;
+            max-width: 550px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            animation: fadeInContainer 1s ease-out;
+        }
+        
+        @keyframes fadeInContainer {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+
+        .eid-gif {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid rgba(var(--accent-gold-rgb), 0.5);
+            box-shadow: 0 0 20px var(--subtle-glow);
+        }
+
+        .decorative-flourish {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8em;
+            color: var(--accent-gold);
+            margin-bottom: -10px; 
+            opacity: 0;
+            animation: slideInText 1s 0.3s ease-out forwards;
+        }
+        
+        @keyframes slideInText {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .greeting-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6em, 5vw, 2.2em); 
+            font-weight: 700;
+            color: var(--heading-text-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: slideInText 1s 0.5s ease-out forwards;
+        }
+        
+        .greeting-subtext {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+            color: var(--text-color);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideInText 1s 0.7s ease-out forwards;
+        }
+        .greeting-subtext span { 
+            color: var(--accent-gold);
+            font-size: 1.2em;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(var(--accent-gold-rgb), 0.05);
+            color: var(--text-color);
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-field::placeholder {
+            color: rgba(var(--text-color-rgb, 204, 214, 246), 0.6);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(var(--accent-gold-rgb), 0.2);
+        }
+
+        .action-button {
+            background-color: var(--button-bg);
+            color: var(--button-text); 
+            font-weight: 500; 
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            outline: none;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none; 
+            box-shadow: 0 4px 15px -5px rgba(var(--accent-gold-rgb),0.4);
+        }
+
+        .action-button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px -5px rgba(var(--accent-gold-rgb),0.5);
+        }
+        
+        .action-button:focus-visible { 
+            box-shadow: 0 0 0 3px var(--bg-color), 0 0 0 5px var(--accent-gold);
+        }
+
+        .action-button svg {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .custom-wish-area {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: clamp(1em, 3.5vw, 1.15em);
+            padding: 0; 
+            background-color: rgba(var(--accent-gold-rgb), 0.03);
+            border-left: 4px solid var(--accent-gold);
+            color: var(--text-color);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.6s ease-out, max-height 0.6s ease-out, padding 0.6s ease-out;
+            border-radius: 0 8px 8px 0;
+            text-align: left; 
+            line-height: 1.7;
+        }
+
+        .custom-wish-area.show {
+            opacity: 1;
+            max-height: 300px; 
+            padding: 18px 22px;
+        }
+        .custom-wish-area strong {
+            color: var(--accent-gold);
+        }
+
+        #shareWhatsappButton {
+            display: none; 
+            background: #25D366; 
+            color: white;
+            box-shadow: 0 4px 15px -5px rgba(37, 211, 102, 0.5);
+        }
+        
+        #shareWhatsappButton:hover {
+            background: #1DAE54; 
+            box-shadow: 0 6px 20px -5px rgba(37, 211, 102, 0.6);
+        }
+        
+        #shareWhatsappButton svg path {
+            fill: white;
+        }
+        
+        /* Ad Container Styling */
+        #adContainerBottom {
+            position: fixed;
+            bottom: 10px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px; 
+            height: 50px; 
+            background: transparent; 
+            z-index: 9999; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding-bottom: 70px; 
+            }
+            .container {
+                padding: 20px;
+                margin-top: 15px;
+            }
+            .eid-gif {
+                max-width: 240px;
+                 margin-bottom: 25px;
+            }
+             .decorative-flourish {
+                font-size: 2.2em;
+             }
+            .greeting-text {
+                margin-bottom: 10px;
+            }
+            .greeting-subtext {
+                margin-bottom: 25px;
+            }
+            .action-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            .custom-wish-area {
+                 margin-bottom: 20px;
+            }
+        }
+         @media (max-width: 350px) {
+            #adContainerBottom {
+                width: 100%; 
+                max-width: 320px; 
+            }
+         }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="eid.gif" alt="Eid Mubarak GIF" class="eid-gif">
+
+        <div class="decorative-flourish">Eid Mubarak</div>
+        <h1 class="greeting-text">Wishing You a Blessed Eid!</h1>
+        <p class="greeting-subtext"><span>✨</span> May this special day bring joy, peace, and prosperity to you and your loved ones. <span>✨</span></p>
+
+
+        <input type="text" id="nameInput" class="input-field" placeholder="Your Name (Optional)">
+
+        <button id="generateWishButton" class="action-button">Create My Eid Wish</button>
+
+        <div id="customWishOutput" class="custom-wish-area"></div>
+
+        <button id="shareWhatsappButton" class="action-button">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.173.200-.296.300-.495.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z"/>
+            </svg>
+            Share on WhatsApp
+        </button>
+    </div>
+
+    <!-- New Ad Script (e.g., Pop-under, Direct Link) -->
+    <script type='text/javascript' src='//pl26809181.profitableratecpm.com/14/7f/71/147f7126e271554724df1d41a3e4c3cb.js'></script>
+
+    <!-- Ad Container for Adsterra Banner -->
+    <div id="adContainerBottom">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'cc9b83a11adf684b55c981aa7cfe6cdd',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/cc9b83a11adf684b55c981aa7cfe6cdd/invoke.js"></script>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('nameInput');
+            const generateWishButton = document.getElementById('generateWishButton');
+            const customWishOutput = document.getElementById('customWishOutput');
+            const shareWhatsappButton = document.getElementById('shareWhatsappButton');
+           
+            let customMessageText = ""; 
+
+            generateWishButton.addEventListener('click', () => {
+                const name = nameInput.value.trim();
+                const displayName = name || "a friend"; 
+                
+                customMessageText = `Eid Mubarak! This special wish comes from ${displayName}. 🎉 May your Eid be filled with happiness, cherished moments, and countless blessings!`;
+                
+                customWishOutput.innerHTML = `Eid Mubarak! This special wish comes from <strong>${displayName}</strong>. 🎉 May your Eid be filled with happiness, cherished moments, and countless blessings!`;
+                customWishOutput.classList.add('show');
+                
+                shareWhatsappButton.style.display = 'inline-flex'; 
+            });
+
+            shareWhatsappButton.addEventListener('click', () => {
+                if (!customMessageText) {
+                    alert("Please create your wish first!");
+                    return;
+                }
+                
+                const siteUrl = window.location.href;
+                const whatsappMessage = encodeURIComponent(customMessageText + "\n\nCreate your own Eid Greeting: " + siteUrl);
+                const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
+                
+                window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+            });
+
+            function setRgbColorVar(varName, hexColor) {
+                let r = 0, g = 0, b = 0;
+                if (hexColor.startsWith('#')) hexColor = hexColor.slice(1);
+                if (hexColor.length === 3) { 
+                    r = parseInt(hexColor[0] + hexColor[0], 16);
+                    g = parseInt(hexColor[1] + hexColor[1], 16);
+                    b = parseInt(hexColor[2] + hexColor[2], 16);
+                } else if (hexColor.length === 6) { 
+                    r = parseInt(hexColor.substring(0, 2), 16);
+                    g = parseInt(hexColor.substring(2, 4), 16);
+                    b = parseInt(hexColor.substring(4, 6), 16);
+                }
+                if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+                    document.documentElement.style.setProperty(varName, `${r}, ${g}, ${b}`);
+                }
+            }
+
+            const accentGoldValue = getComputedStyle(document.documentElement).getPropertyValue('--accent-gold').trim();
+            if (accentGoldValue) {
+                setRgbColorVar('--accent-gold-rgb', accentGoldValue);
+            }
+            const textColorValue = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+             if (textColorValue) {
+                setRgbColorVar('--text-color-rgb', textColorValue);
+            }
+
+        });
+    </script>
+</body>
+</html>
